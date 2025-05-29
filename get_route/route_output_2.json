@@ -1,0 +1,251 @@
+{
+  "start_address": "Ben Yehuda 86 Tel Aviv",
+  "end_address": "Ben Yehuda 2 Tel Aviv",
+  "start_coordinates": [
+    34.770805,
+    32.081226
+  ],
+  "end_coordinates": [
+    34.773376,
+    32.088699
+  ],
+  "total_routes": 2,
+  "routes": [
+    {
+      "route_index": 0,
+      "distance_meters": 882.48,
+      "distance_km": 0.88,
+      "duration_seconds": 605.795,
+      "duration_minutes": 10.1,
+      "geometry": {
+        "coordinates": [
+          [
+            34.770606,
+            32.081301
+          ],
+          [
+            34.770709,
+            32.081496
+          ],
+          [
+            34.77074,
+            32.081562
+          ],
+          [
+            34.771088,
+            32.08228
+          ],
+          [
+            34.771106,
+            32.082369
+          ],
+          [
+            34.771816,
+            32.083775
+          ],
+          [
+            34.771956,
+            32.08407
+          ],
+          [
+            34.772351,
+            32.084823
+          ],
+          [
+            34.77239,
+            32.084915
+          ],
+          [
+            34.7725,
+            32.084997
+          ],
+          [
+            34.772664,
+            32.085461
+          ],
+          [
+            34.772704,
+            32.085574
+          ],
+          [
+            34.772884,
+            32.086192
+          ],
+          [
+            34.773219,
+            32.087301
+          ],
+          [
+            34.773163,
+            32.087416
+          ],
+          [
+            34.773234,
+            32.087639
+          ],
+          [
+            34.773304,
+            32.08785
+          ],
+          [
+            34.77352,
+            32.088608
+          ],
+          [
+            34.773475,
+            32.088622
+          ],
+          [
+            34.773358,
+            32.088658
+          ]
+        ],
+        "type": "LineString"
+      },
+      "steps": [
+        {
+          "instruction": "Walk northeast on בן יהודה.",
+          "distance_meters": 715.505,
+          "duration_seconds": 482.996,
+          "street_name": "בן יהודה"
+        },
+        {
+          "instruction": "Bear left to stay on בן יהודה.",
+          "distance_meters": 150.764,
+          "duration_seconds": 109.889,
+          "street_name": "בן יהודה"
+        },
+        {
+          "instruction": "Turn left onto the walkway.",
+          "distance_meters": 16.211,
+          "duration_seconds": 12.91,
+          "street_name": ""
+        },
+        {
+          "instruction": "Your destination is on the right.",
+          "distance_meters": 0,
+          "duration_seconds": 0,
+          "street_name": ""
+        }
+      ]
+    },
+        {
+      "route_index": 0,
+      "distance_meters": 882.48,
+      "distance_km": 0.88,
+      "duration_seconds": 605.795,
+      "duration_minutes": 10.1,
+      "geometry": {
+        "coordinates": [
+          [
+            34.770606,
+            32.081301
+          ],
+          [
+            34.770709,
+            32.081596
+          ],
+          [
+            34.77074,
+            32.081762
+          ],
+          [
+            34.771088,
+            32.08228
+          ],
+          [
+            34.771106,
+            32.086369
+          ],
+          [
+            34.771816,
+            32.083175
+          ],
+          [
+            34.771956,
+            32.08407
+          ],
+          [
+            34.772351,
+            32.084723
+          ],
+          [
+            34.77239,
+            32.084915
+          ],
+          [
+            34.7725,
+            32.084997
+          ],
+          [
+            34.772664,
+            32.085461
+          ],
+          [
+            34.772704,
+            32.085574
+          ],
+          [
+            34.772884,
+            32.086192
+          ],
+          [
+            34.773219,
+            32.087301
+          ],
+          [
+            34.773163,
+            32.087416
+          ],
+          [
+            34.773234,
+            32.087639
+          ],
+          [
+            34.773304,
+            32.08785
+          ],
+          [
+            34.77352,
+            32.088608
+          ],
+          [
+            34.773575,
+            32.088522
+          ],
+          [
+            34.773358,
+            32.088658
+          ]
+        ],
+        "type": "LineString"
+      },
+      "steps": [
+        {
+          "instruction": "Walk northeast on בן יהודה.",
+          "distance_meters": 715.505,
+          "duration_seconds": 482.996,
+          "street_name": "בן יהודה"
+        },
+        {
+          "instruction": "Bear left to stay on בן יהודה.",
+          "distance_meters": 150.764,
+          "duration_seconds": 109.889,
+          "street_name": "בן יהודה"
+        },
+        {
+          "instruction": "Turn left onto the walkway.",
+          "distance_meters": 16.211,
+          "duration_seconds": 12.91,
+          "street_name": ""
+        },
+        {
+          "instruction": "Your destination is on the right.",
+          "distance_meters": 0,
+          "duration_seconds": 0,
+          "street_name": ""
+        }
+      ]
+    }
+  ]
+}
