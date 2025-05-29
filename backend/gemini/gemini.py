@@ -2,13 +2,14 @@ import json
 import google.generativeai as genai
 import google.auth
 from tel_aviv_gis_data import analyze_all_routes_from_json_obj
+import os
 
 
-def score_route_safety(input_json, gemini_key_file="hackathon-team-37_gemini.json"):
+def score_route_safety(input_json, gemini_key_file="gemini/hackathon-team-37_gemini.json"):
     """Score route safety using Gemini AI"""
 
     # Initialize Gemini
-    credentials, _ = google.auth.load_credentials_from_file(gemini_key_file)
+    credentials, _ = google.auth.load_credentials_from_file(os.path.abspath(os.getcwd()) + "/" + gemini_key_file)
     genai.configure(credentials=credentials)
     # Using 'gemini-1.5-flash' for better JSON handling and longer context
     model = genai.GenerativeModel("gemini-1.5-flash")
@@ -104,14 +105,14 @@ def parse_gemini_response(response_text, route_index):
 
 
 def run(data):
-
     route_information = json.loads(analyze_all_routes_from_json_obj(data))
 
     scores = score_route_safety(route_information)
-
+    data = json.loads(data)
     for result in scores:
         for i in range(len(data["routes"])):
             if data["routes"][i]["route_index"] == result["route"]:
                 data["routes"][i]["safety_score"] = result["score"]
                 data["routes"][i]["safety_description"] = result["analysis"]
+    print(data)
     return data

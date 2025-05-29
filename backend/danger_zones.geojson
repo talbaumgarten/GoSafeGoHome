@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Danger Zone 1" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-73.98, 40.73],
+            [-73.97, 40.73],
+            [-73.97, 40.74],
+            [-73.98, 40.74],
+            [-73.98, 40.73]
+          ]
+        ]
+      }
+    }
+  ]
+}

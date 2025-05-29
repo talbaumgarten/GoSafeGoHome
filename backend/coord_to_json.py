@@ -1,10 +1,23 @@
 import osmnx as ox
 import networkx as nx
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import json
 
 ox.settings.use_cache = True
-ox.settings.log_console = True
+# ox.settings.log_console = True
+
+
+def calculate_path_length(G, path):
+    """Calculate the total length of a path in KM"""
+    total_length = 0
+    for u, v in zip(path[:-1], path[1:]):
+        # Get all edge data between nodes (handles parallel edges)
+        edge_data = G.get_edge_data(u, v)
+        if edge_data:
+            # Take the first edge (0) if multiple exist
+            length = edge_data[0].get('length', 0)
+            total_length += length
+    return total_length / 1000
 
 def addresses_to_coords(origin_address, destination_address):
     origin_point = ox.geocoder.geocode(origin_address)
@@ -14,11 +27,12 @@ def addresses_to_coords(origin_address, destination_address):
 
 def coord_to_json(origin, destination):
     # Convert addresses to coordinates
-    origin, destination = addresses_to_coords(origin_address, destination_address)
+    origin_address, dest_address = origin, destination
+    origin, destination = addresses_to_coords(origin, destination)
     if not origin or not destination:
         print("Could not geocode one or both addresses.")
         return
-    G = ox.graph_from_point(origin, dist=1500, network_type='walk', simplify=True)
+    G = ox.graph_from_point(origin, dist=2000, network_type='walk', simplify=True)
 
     # Get nearest nodes
     orig_node = ox.distance.nearest_nodes(G, X=origin[1], Y=origin[0])
@@ -43,6 +57,7 @@ def coord_to_json(origin, destination):
 
         routes.append({
             "route_index": idx,
+            "distance_km": calculate_path_length(G, path),
             "geometry": {
                 "coordinates": coords
             }
@@ -51,7 +66,7 @@ def coord_to_json(origin, destination):
     # Build the full JSON structure
     output = {
         "start_address": origin_address,
-        "end_address": destination_address,
+        "end_address": dest_address,
         "start_coordinates": [origin[1], origin[0]],  # [lon, lat]
         "end_coordinates": [destination[1], destination[0]],
         "total_routes": 2,
