@@ -1,6 +1,7 @@
 import json
 import google.generativeai as genai
 import google.auth
+from tel_aviv_gis_data import analyze_all_routes_from_json_obj
 
 
 def score_route_safety(input_json, gemini_key_file="hackathon-team-37_gemini.json"):
@@ -15,7 +16,6 @@ def score_route_safety(input_json, gemini_key_file="hackathon-team-37_gemini.jso
     results = []
     # Process each route file
     for route_data in input_json:
-
         # Convert route_data to a JSON string
         route_data_json_string = json.dumps(route_data, indent=2)  # Added indent for readability in prompt
 
@@ -103,23 +103,15 @@ def parse_gemini_response(response_text, route_index):
     }
 
 
-if __name__ == "__main__":
+def run(data):
 
-    route_json = r"C:\Users\talba\PycharmProjects\GoSafe&GoHome\get_route\route_output_2.json"
-    with open(route_json, "r", encoding="utf-8") as f:
-        data = json.load(f)
+    route_information = json.loads(analyze_all_routes_from_json_obj(data))
 
-    nitsan1 = r"nitsan.json"
-
-    with open(nitsan1, "r", encoding="utf-8") as f:
-        data2 = json.load(f)
-
-    scores = score_route_safety(data2)
+    scores = score_route_safety(route_information)
 
     for result in scores:
         for i in range(len(data["routes"])):
             if data["routes"][i]["route_index"] == result["route"]:
                 data["routes"][i]["safety_score"] = result["score"]
-                print(result["score"])
                 data["routes"][i]["safety_description"] = result["analysis"]
-                print(result["analysis"])
+    return data
