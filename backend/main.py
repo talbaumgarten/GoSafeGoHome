@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware 
 from pydantic import BaseModel
+import const
 
 app = FastAPI()
 
@@ -19,10 +20,4 @@ class RouteRequest(BaseModel):
 @app.post("/safe-route")
 def get_safe_route(req: RouteRequest):
     # Dummy safe route logic
-    return {
-        "route": [
-            {"lat": 40.748817, "lng": -73.985428},
-            {"lat": 40.749017, "lng": -73.987428},
-        ],
-        "safety_score": 0.92
-    }
+    return const.RESULT
