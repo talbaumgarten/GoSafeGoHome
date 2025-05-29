@@ -11,7 +11,8 @@ def score_route_safety(json_files, gemini_key_file="hackathon-team-37_gemini.jso
     print("🤖 Initializing Gemini...")
     credentials, _ = google.auth.load_credentials_from_file(gemini_key_file)
     genai.configure(credentials=credentials)
-    model = genai.GenerativeModel("gemini-2.5-flash-preview-05-20")
+    # Using 'gemini-1.5-flash' for better JSON handling and longer context
+    model = genai.GenerativeModel("gemini-1.5-flash")  # Changed to a more capable model
 
     results = []
 
@@ -23,10 +24,15 @@ def score_route_safety(json_files, gemini_key_file="hackathon-team-37_gemini.jso
         with open(file_path, 'r', encoding='utf-8') as f:
             route_data = json.load(f)
 
+        # Convert route_data to a JSON string
+        route_data_json_string = json.dumps(route_data, indent=2)  # Added indent for readability in prompt
+
         # Create prompt
-        prompt = create_safety_prompt(route_data)
+        prompt = create_safety_prompt(route_data["route_index"],
+                                      route_data_json_string)  # Pass JSON string to prompt function
 
         # Get Gemini response
+        # Pass only the prompt string to generate_content
         response = model.generate_content(prompt)
 
         # Parse response
@@ -38,47 +44,25 @@ def score_route_safety(json_files, gemini_key_file="hackathon-team-37_gemini.jso
     return results
 
 
-def create_safety_prompt(route_data):
+def create_safety_prompt(route_idx, route_data_json_string):  # Updated to accept JSON string
     """Create safety analysis prompt for Gemini"""
 
-    route_idx = route_data["route_index"]
-    total_points = len(route_data["points"])
-
-    # Count safety features
-    osm_features = sum(len(point["osm"]) for point in route_data["points"])
-    gis_features = sum(len(point["gis"]) for point in route_data["points"])
-
-    # Sample some points for detail
-    sample_points = route_data["points"][:5]  # First 5 points
-
     prompt = f"""
-Analyze the safety of walking route {route_idx} based on this data:
+    Analyze the safety of walking route {route_idx} based on the following JSON data:
 
-ROUTE OVERVIEW:
-- Total points: {total_points}
-- OSM safety features found: {osm_features}
-- Tel Aviv GIS features found: {gis_features}
+    ```json
+    {route_data_json_string}
+    ```
 
-SAMPLE POINTS DATA:
-"""
+    INSTRUCTIONS:
+    Rate this walking route's safety from 1 (very unsafe) to 10 (very safe).
+    Consider factors like crime data - from your knowledge, road conditions, lighting, and pedestrian infrastructure as implied by the data.
 
-    for point in sample_points:
-        prompt += f"""
-Point {point['index']} ({point['lat']:.6f}, {point['lon']:.6f}):
-- OSM data: {point['osm']}
-- GIS features: {len([f for gis in point['gis'] for f in gis['features']])} total
-"""
-
-    prompt += """
-INSTRUCTIONS:
-Rate this walking route's safety from 1 (very unsafe) to 10 (very safe).
-Consider: lighting, surface quality, sidewalks, security cameras, municipal facilities.
-
-RESPONSE FORMAT:
-Route: [route number]
-Score: [number]/10
-Analysis: [max 20 words explaining the score]
-"""
+    RESPONSE FORMAT:
+    Route: [route number]
+    Score: [number]/10
+    Analysis: [max 20 words explaining the score, focusing on key safety aspects]
+    """
 
     return prompt
 
@@ -124,7 +108,8 @@ if __name__ == "__main__":
     from route_analyzer import analyze_routes_with_crime
 
     # Get route files from the analyzer
-    route_files = analyze_routes_with_crime("sources.txt", r"C:\Users\talba\PycharmProjects\GoSafe&GoHome\get_route\route_output.json")
+    route_files = analyze_routes_with_crime("sources.txt",
+                                            r"C:\Users\talba\PycharmProjects\GoSafe&GoHome\get_route\rahat.json")
 
     # Score the routes
     scores = score_route_safety(route_files)
