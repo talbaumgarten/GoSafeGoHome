@@ -14,6 +14,8 @@ function App() {
   const [endSuggestions, setEndSuggestions] = useState([]);
   const [showStartSuggestions, setShowStartSuggestions] = useState(false);
   const [showEndSuggestions, setShowEndSuggestions] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
   // Refs for input fields
   const startInputRef = useRef(null);
@@ -96,8 +98,22 @@ function App() {
 
 
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const response = await fetch("http://localhost:8000/safe-route", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ start, end }),
+  //   });
+  //   const data = await response.json();
+  //   setRouteData(data);
+  //   setSelectedRouteIndex(0);
+  // };
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  setLoading(true); // Start loading
+  setRouteData(null)
+  try {
     const response = await fetch("http://localhost:8000/safe-route", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -105,8 +121,12 @@ function App() {
     });
     const data = await response.json();
     setRouteData(data);
-    setSelectedRouteIndex(0);
-  };
+  } catch (error) {
+    console.error("Failed to fetch route:", error);
+  } finally {
+    setLoading(false); // Stop loading
+  }
+};
 
   const RouteSummary = ({ route }) => (
     <div className="bg-white p-4 mt-4 rounded-lg shadow">
@@ -149,8 +169,8 @@ function App() {
 
   return (
     <div className="flex flex-col h-screen font-sans">
-      <header className="bg-blue-700 text-white p-4 text-xl font-bold shadow">
-        SAFTY FIRST
+      <header className="bg-blue-600 text-white p-4 text-xl font-bold shadow">
+        SAFETY FIRST
       </header>
       <div className="flex flex-grow">
         <aside className="w-80 bg-gray-50 p-4 shadow-md z-10 overflow-y-auto">
@@ -211,6 +231,11 @@ function App() {
               Find Safe Route
             </button>
           </form>
+          {loading && (
+          <div className="mt-4 text-blue-700 font-bold text-center">
+            Loading route...
+          </div>
+        )}
 
           {routes.length > 0 && (
             <>
