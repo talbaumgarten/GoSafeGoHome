@@ -1,73 +1,130 @@
 import json
+import requests
 from shapely.geometry import LineString, Point
 from pyproj import Transformer
-import pandas as pd
+from geopy.distance import distance as geopy_distance
 
-# --- קריאת קובץ JSON עם המסלול ---
-with open("route_output.json", "r", encoding="utf-8") as f:
-    route_data = json.load(f)
 
-# --- חילוץ הנ"צ מהקובץ ---
-route_coords = route_data["routes"][0]["geometry"]["coordinates"]
+def get_nearby_lights(route_coords):
+    min_lon = min(p[0] for p in route_coords)
+    max_lon = max(p[0] for p in route_coords)
+    min_lat = min(p[1] for p in route_coords)
+    max_lat = max(p[1] for p in route_coords)
 
-# Simulated: route coordinates (WGS84)
-route_coords = [
-    [34.770606, 32.081301],
-    [34.770709, 32.081496],
-    [34.77074, 32.081562],
-    [34.771088, 32.08228],
-    [34.771106, 32.082369],
-    [34.771816, 32.083775],
-    [34.771956, 32.08407],
-    [34.772351, 32.084823],
-    [34.77239, 32.084915],
-    [34.7725, 32.084997],
-    [34.772664, 32.085461],
-    [34.772704, 32.085574],
-    [34.772884, 32.086192],
-    [34.773219, 32.087301],
-    [34.773163, 32.087416],
-    [34.773234, 32.087639],
-    [34.773304, 32.08785],
-    [34.77352, 32.088608],
-    [34.773475, 32.088622],
-    [34.773358, 32.088658],
-]
-route_line = LineString(route_coords)
+    transformer_to_itm = Transformer.from_crs("EPSG:4326", "EPSG:2039", always_xy=True)
+    xmin, ymin = transformer_to_itm.transform(min_lon, min_lat)
+    xmax, ymax = transformer_to_itm.transform(max_lon, max_lat)
 
-# Simulated street light locations (WGS84) - sample subset
-sample_lights = [
-    (34.7707, 32.0815),
-    (34.7711, 32.0822),
-    (34.7719, 32.0840),
-    (34.7723, 32.0848),
-    (34.7726, 32.0854),
-    (34.7728, 32.0861),
-    (34.7732, 32.0873),
-    (34.7735, 32.0886),
-    (34.7750, 32.0900),  # far from route
-]
+    url = "https://gisn.tel-aviv.gov.il/arcgis/rest/services/IView2/MapServer/543/query"
+    params = {
+        "where": "1=1",
+        "outFields": "*",
+        "returnGeometry": "true",
+        "f": "json",
+        "geometry": f"{xmin},{ymin},{xmax},{ymax}",
+        "geometryType": "esriGeometryEnvelope",
+        "spatialRel": "esriSpatialRelIntersects"
+    }
 
-# Check how many lights are within ~25 meters of the path
-buffer_degrees = 0.00025
-count_on_route = sum(
-    route_line.buffer(buffer_degrees).contains(Point(lon, lat))
-    for lon, lat in sample_lights
-)
+    response = requests.get(url, params=params)
+    features = response.json().get("features", [])
 
-# Route length (from your JSON input)
-route_length_km = 0.88
-density = round(count_on_route / route_length_km, 2)
+    transformer = Transformer.from_crs("EPSG:2039", "EPSG:4326", always_xy=True)
+    return [
+        transformer.transform(f["geometry"]["x"], f["geometry"]["y"])
+        for f in features
+    ]
 
-# Result table
-df = pd.DataFrame([{
-    "Street Light Count": count_on_route,
-    "Route Length (km)": route_length_km,
-    "Lights per km": density
-}])
 
-print(df.to_string(index=False))
+def count_shelters_along_route(route_coords):
+    transformer_to_itm = Transformer.from_crs("EPSG:4326", "EPSG:2039", always_xy=True)
+    min_lon = min(p[0] for p in route_coords)
+    max_lon = max(p[0] for p in route_coords)
+    min_lat = min(p[1] for p in route_coords)
+    max_lat = max(p[1] for p in route_coords)
+    xmin, ymin = transformer_to_itm.transform(min_lon, min_lat)
+    xmax, ymax = transformer_to_itm.transform(max_lon, max_lat)
 
-# Save output to JSON file
-df.to_json("route_lighting_output.json", orient="records", indent=2)
-print("✅ Data exported to route_lighting_output.json")
+    url = "https://gisn.tel-aviv.gov.il/arcgis/rest/services/IView2/MapServer/592/query"
+    params = {
+        "where": "1=1",
+        "outFields": "*",
+        "returnGeometry": "true",
+        "f": "json",
+        "geometry": f"{xmin},{ymin},{xmax},{ymax}",
+        "geometryType": "esriGeometryEnvelope",
+        "spatialRel": "esriSpatialRelIntersects"
+    }
+
+    response = requests.get(url, params=params)
+    features = response.json().get("features", [])
+
+    transformer = Transformer.from_crs("EPSG:2039", "EPSG:4326", always_xy=True)
+    route_line = LineString(route_coords)
+    buffer_degrees = 0.00025
+
+    count = 0
+    for feature in features:
+        geom = feature.get("geometry", {})
+        x = geom.get("x")
+        y = geom.get("y")
+        if x is not None and y is not None:
+            lon, lat = transformer.transform(x, y)
+            if route_line.buffer(buffer_degrees).contains(Point(lon, lat)):
+                count += 1
+
+    return count
+
+
+def analyze_route(route_coords):
+    sample_lights = get_nearby_lights(route_coords)
+
+    lit_distance = 0.0
+    dark_distance = 0.0
+    buffer_meters = 25
+
+    for i in range(len(route_coords) - 1):
+        lon1, lat1 = route_coords[i]
+        lon2, lat2 = route_coords[i + 1]
+        segment_len_km = geopy_distance((lat1, lon1), (lat2, lon2)).km
+
+        is_lit = any(
+            geopy_distance((lat1, lon1), (lat, lon)).meters < buffer_meters or
+            geopy_distance((lat2, lon2), (lat, lon)).meters < buffer_meters
+            for lon, lat in sample_lights
+        )
+
+        if is_lit:
+            lit_distance += segment_len_km
+        else:
+            dark_distance += segment_len_km
+
+    if lit_distance == 0 and dark_distance == 0:
+        ratio = "Undefined"
+    elif lit_distance == 0:
+        ratio = "Infinity (fully dark)"
+    else:
+        ratio = round(dark_distance / lit_distance, 2)
+
+    shelters_count = count_shelters_along_route(route_coords)
+
+    return {
+        "Lit Distance (km)": round(lit_distance, 3),
+        "Dark Distance (km)": round(dark_distance, 3),
+        "Dark-to-Lit Ratio": ratio,
+        "Shelters Count": shelters_count
+    }
+
+
+def analyze_all_routes(route_json_path):
+    with open(route_json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    results = []
+    for idx, route in enumerate(data.get("routes", [])):
+        coords = route["geometry"]["coordinates"]
+        stats = analyze_route(coords)
+        stats["Route Index"] = idx
+        results.append(stats)
+
+    return json.dumps(results, ensure_ascii=False)
