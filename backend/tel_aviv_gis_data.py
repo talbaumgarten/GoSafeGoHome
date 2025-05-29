@@ -181,6 +181,7 @@ def analyze_route(route_coords):
 
 
 def analyze_all_routes_from_json_obj(route_data):
+    route_data = json.loads(route_data)
     results = []
     for idx, route in enumerate(route_data.get("routes", [])):
         coords = route["geometry"]["coordinates"]

@@ -112,7 +112,8 @@ function App() {
   const handleSubmit = async (e) => {
   e.preventDefault();
   setLoading(true); // Start loading
-  setRouteData(null)
+  setRouteData(null);
+  setSelectedRouteIndex(0);
   try {
     const response = await fetch("http://localhost:8000/safe-route", {
       method: "POST",
@@ -134,14 +135,14 @@ function App() {
       <p><strong>From:</strong> {routeData.start_address}</p>
       <p><strong>To:</strong> {routeData.end_address}</p>
       <p><strong>Distance:</strong> {routeData?.routes?.[selectedRouteIndex].distance_km.toFixed(2)} km</p>
-      <p><strong>Estimated Time:</strong> {routeData?.routes?.[selectedRouteIndex].duration_minutes.toFixed(1)} min</p>
+      {/* <p><strong>Estimated Time:</strong> {routeData?.routes?.[selectedRouteIndex].duration_minutes.toFixed(1)} min</p> */}
     </div>
   );
 
   const SafeSummary = ({ route }) => (
     <div className="bg-white p-4 mt-4 rounded-lg shadow">
       <h2 className="text-red-800 font-bold text-lg"><strong>Safety Summary</strong></h2>
-      <p className="text-red-800 font-bold"><strong>Safety Rank:</strong> {route.safety_rank}/10</p>
+      <p className="text-red-800 font-bold"><strong>Safety Rank:</strong> {route.safety_score}/10</p>
       <p className="text-red-800 font-bold"><strong>Description: </strong> {route.safety_description}</p>
     </div>
   );
@@ -170,7 +171,7 @@ function App() {
   return (
     <div className="flex flex-col h-screen font-sans">
       <header className="bg-blue-600 text-white p-4 text-xl font-bold shadow">
-        SAFETY FIRST
+        WALK WISE
       </header>
       <div className="flex flex-grow">
         <aside className="w-80 bg-gray-50 p-4 shadow-md z-10 overflow-y-auto">
@@ -250,8 +251,8 @@ function App() {
                 >
                   {routes.map((r, i) => (
                     <option key={i} value={i}>
-                      Route {i + 1} - {r.distance_km.toFixed(1)} km, safe score: {r.safety_rank} 
-                    </option>
+                      Route {i + 1} - safe score: {r.safety_score} 
+                    </option> //{r.distance_km.toFixed(1)} km,
                   ))}
                 </select>
               </div>
