@@ -1,0 +1,1 @@
+https://gisn.tel-aviv.gov.il/arcgis/rest/services/IView2/MapServer/543/query
