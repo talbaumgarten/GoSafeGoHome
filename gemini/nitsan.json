@@ -1,0 +1,16 @@
+[
+  {
+    "Lit Distance (km)": 1.783,
+    "Dark Distance (km)": 0.0,
+    "Dark-to-Lit Ratio": 0.0,
+    "Shelters Count": 2,
+    "Route Index": 0
+  },
+  {
+    "Lit Distance (km)": 2.129,
+    "Dark Distance (km)": 0.133,
+    "Dark-to-Lit Ratio": 0.06,
+    "Shelters Count": 0,
+    "Route Index": 1
+  }
+]

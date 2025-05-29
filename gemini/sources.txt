@@ -1,3 +1,0 @@
-https://gisn.tel-aviv.gov.il/arcgis/rest/services/IView2/MapServer/543/query
-https://gisn.tel-aviv.gov.il/arcgis/rest/services/IView2/MapServer/592/query
-https://gisn.tel-aviv.gov.il/arcgis/rest/services/IView2/MapServer/858/query

@@ -1,34 +1,26 @@
 import json
-import os
 import google.generativeai as genai
 import google.auth
 
 
-def score_route_safety(json_files, gemini_key_file="hackathon-team-37_gemini.json"):
+def score_route_safety(input_json, gemini_key_file="hackathon-team-37_gemini.json"):
     """Score route safety using Gemini AI"""
 
     # Initialize Gemini
-    print("🤖 Initializing Gemini...")
     credentials, _ = google.auth.load_credentials_from_file(gemini_key_file)
     genai.configure(credentials=credentials)
     # Using 'gemini-1.5-flash' for better JSON handling and longer context
-    model = genai.GenerativeModel("gemini-1.5-flash")  # Changed to a more capable model
+    model = genai.GenerativeModel("gemini-1.5-flash")
 
     results = []
-
     # Process each route file
-    for file_path in json_files:
-        print(f"📊 Analyzing {file_path}...")
-
-        # Load route data
-        with open(file_path, 'r', encoding='utf-8') as f:
-            route_data = json.load(f)
+    for route_data in input_json:
 
         # Convert route_data to a JSON string
         route_data_json_string = json.dumps(route_data, indent=2)  # Added indent for readability in prompt
 
         # Create prompt
-        prompt = create_safety_prompt(route_data["route_index"],
+        prompt = create_safety_prompt(route_data["Route Index"],
                                       route_data_json_string)  # Pass JSON string to prompt function
 
         # Get Gemini response
@@ -36,10 +28,9 @@ def score_route_safety(json_files, gemini_key_file="hackathon-team-37_gemini.jso
         response = model.generate_content(prompt)
 
         # Parse response
-        route_score = parse_gemini_response(response.text, route_data["route_index"])
+        route_score = parse_gemini_response(response.text, route_data["Route Index"])
 
         results.append(route_score)
-        print(f"✅ Route {route_data['route_index']}: Score {route_score['score']}/10")
 
     return results
 
@@ -55,8 +46,17 @@ def create_safety_prompt(route_idx, route_data_json_string):  # Updated to accep
     ```
 
     INSTRUCTIONS:
-    Rate this walking route's safety from 1 (very unsafe) to 10 (very safe).
-    Consider factors like crime data - from your knowledge, road conditions, lighting, and pedestrian infrastructure as implied by the data.
+    Rate this walking route's safety from 1 (very unsafe) to 10 (very safe) according the data and web searching.
+        
+    Lit Distance (km): means a longer lit distance improves visibility and makes the route safer at night
+    Dark Distance (km): means a shorter dark distance is safer, as unlit areas can pose risks
+    Dark-to-Lit Ratio: means a lower ratio indicates a safer, better-lit route overall
+    Shelters Count: means more shelters along the route offer better protection and comfort
+    Near Construction Site: means routes away from construction zones are generally safer and less disruptive
+    Near Night Public Work: means avoiding night public works reduces exposure to noise and temporary hazards
+    Near Road Work: means it's safer to take routes that don't pass near active roadwork
+    On Walking Street: means routes on pedestrian-only streets are safer and more comfortable for walking
+
 
     RESPONSE FORMAT:
     Route: [route number]
@@ -103,18 +103,23 @@ def parse_gemini_response(response_text, route_index):
     }
 
 
-# Usage
 if __name__ == "__main__":
-    from route_analyzer import analyze_routes_with_crime
 
-    # Get route files from the analyzer
-    route_files = analyze_routes_with_crime("sources.txt",
-                                            r"C:\Users\talba\PycharmProjects\GoSafe&GoHome\get_route\rahat.json")
+    route_json = r"C:\Users\talba\PycharmProjects\GoSafe&GoHome\get_route\route_output_2.json"
+    with open(route_json, "r", encoding="utf-8") as f:
+        data = json.load(f)
 
-    # Score the routes
-    scores = score_route_safety(route_files)
+    nitsan1 = r"nitsan.json"
 
-    print("\n🎯 SAFETY SCORES:")
+    with open(nitsan1, "r", encoding="utf-8") as f:
+        data2 = json.load(f)
+
+    scores = score_route_safety(data2)
+
     for result in scores:
-        print(f"\nRoute {result['route']}: {result['score']}/10")
-        print(f"Analysis: {result['analysis']}")
+        for i in range(len(data["routes"])):
+            if data["routes"][i]["route_index"] == result["route"]:
+                data["routes"][i]["safety_score"] = result["score"]
+                print(result["score"])
+                data["routes"][i]["safety_description"] = result["analysis"]
+                print(result["analysis"])
