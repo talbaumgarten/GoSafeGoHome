@@ -13,7 +13,7 @@ A clean, easy-to-use Python wrapper for Google's Gemini AI models.
 ### 1. Basic Usage
 
 ```python
-from gemini import init_model
+from gemini.gemini import init_model
 
 # Initialize with model selection menu
 gemini = init_model()
@@ -26,7 +26,7 @@ print(response)
 ### 2. Use Specific Model
 
 ```python
-from gemini import init_model
+from gemini.gemini import init_model
 
 # Use a specific model directly
 gemini = init_model("gemini-1.5-flash")
@@ -37,7 +37,7 @@ print(response)
 ### 3. Multiple Questions
 
 ```python
-from gemini import init_model
+from gemini.gemini import init_model
 
 gemini = init_model("gemini-2.0-flash")
 
