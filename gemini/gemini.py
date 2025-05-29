@@ -89,10 +89,10 @@ class Gemini:
                     "index": i,
                     "lat": lat,
                     "lon": lon,
-                    "lit": row.get("lit"),
-                    "surface": row.get("surface"),
-                    "width": row.get("width"),
-                    "cycleway": row.get("cycleway")
+                    "lit": row.get("lit") if pd.notna(row.get("lit")) else None,
+                    "surface": row.get("surface") if pd.notna(row.get("surface")) else None,
+                    "width": row.get("width") if pd.notna(row.get("width")) else None,
+                    "cycleway": row.get("cycleway") if pd.notna(row.get("cycleway")) else None
                 })
 
             except Exception as e:
@@ -149,13 +149,13 @@ def main():
     gemini = Gemini()
     gemini.init_model()
     gemini.load_sources_from_txt("sources.txt")
-    gemini.load_routes_from_json(r"C:\Users\talba\PycharmProjects\GoSafe&GoHome\get_route\route_output.json")
+    gemini.load_routes_from_json(r"C:\\Users\\talba\\PycharmProjects\\GoSafe&GoHome\\get_route\\route_output.json")
     results = gemini.ask(
         "Score the route from 1 (unsafe) to 10 (very safe), and explain the reasoning using only the sources provided.",
         short_answer=True
     )
     for index, answer in results:
-        print(f"\n🛣️ Route {index} Safety Evaluation:\n{answer}")
+        print(f"\n🚣️ Route {index} Safety Evaluation:\n{answer}")
 
 
 if __name__ == "__main__":
