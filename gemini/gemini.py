@@ -1,4 +1,5 @@
 import json
+import os
 import google.generativeai as genai
 import google.auth
 
@@ -19,7 +20,7 @@ def score_route_safety(json_files, gemini_key_file="hackathon-team-37_gemini.jso
         print(f"📊 Analyzing {file_path}...")
 
         # Load route data
-        with open(file_path, 'r') as f:
+        with open(file_path, 'r', encoding='utf-8') as f:
             route_data = json.load(f)
 
         # Create prompt
@@ -76,7 +77,7 @@ Consider: lighting, surface quality, sidewalks, security cameras, municipal faci
 RESPONSE FORMAT:
 Route: [route number]
 Score: [number]/10
-Analysis: [max 100 words explaining the score]
+Analysis: [max 20 words explaining the score]
 """
 
     return prompt
@@ -120,10 +121,10 @@ def parse_gemini_response(response_text, route_index):
 
 # Usage
 if __name__ == "__main__":
-    from route_analyzer import analyze_routes
+    from route_analyzer import analyze_routes_with_crime
 
     # Get route files from the analyzer
-    route_files = analyze_routes("sources.txt", r"C:\Users\talba\PycharmProjects\GoSafe&GoHome\get_route\route_output.json")
+    route_files = analyze_routes_with_crime("sources.txt", r"C:\Users\talba\PycharmProjects\GoSafe&GoHome\get_route\route_output.json")
 
     # Score the routes
     scores = score_route_safety(route_files)

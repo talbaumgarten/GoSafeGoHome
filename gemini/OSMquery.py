@@ -1,6 +1,7 @@
 import osmnx as ox
 import pandas as pd
 
+
 def query_osm_safety_data(lat: float, lon: float, radius_meters: int = 100):
     """
     Query OSM for safety-related features around coordinates
@@ -49,10 +50,3 @@ def query_osm_safety_data(lat: float, lon: float, radius_meters: int = 100):
     except:
         return {}
 
-
-# Usage example:
-if __name__ == "__main__":
-    lat, lon = 32.0853, 34.7818  # Dizengoff Center
-
-    data = query_osm_safety_data(lat, lon)
-    print(f"OSM data: {data}")

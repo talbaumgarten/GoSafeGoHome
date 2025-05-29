@@ -1,0 +1,701 @@
+{
+  "route_index": 0,
+  "total_points": 20,
+  "analyzed_points": 20,
+  "points": [
+    {
+      "index": 0,
+      "lat": 32.081301,
+      "lon": 34.770606,
+      "osm": {
+        "lit": [
+          "yes"
+        ],
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "traffic_signals",
+          "tertiary",
+          "residential",
+          "pedestrian",
+          "footway",
+          "steps"
+        ],
+        "sidewalk": [
+          "both"
+        ],
+        "amenity": [
+          "place_of_worship",
+          "pharmacy",
+          "recycling",
+          "pub",
+          "restaurant",
+          "bank",
+          "bicycle_rental",
+          "post_office",
+          "telephone",
+          "ice_cream",
+          "bureau_de_change"
+        ],
+        "total_features": 24
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 1,
+      "lat": 32.081496,
+      "lon": 34.770709,
+      "osm": {
+        "lit": [
+          "yes"
+        ],
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "traffic_signals",
+          "tertiary",
+          "residential",
+          "pedestrian",
+          "footway",
+          "steps",
+          "cycleway"
+        ],
+        "sidewalk": [
+          "both"
+        ],
+        "amenity": [
+          "pharmacy",
+          "recycling",
+          "taxi",
+          "pub",
+          "restaurant",
+          "bank",
+          "bicycle_rental",
+          "post_office",
+          "telephone",
+          "ice_cream",
+          "cafe",
+          "atm",
+          "bureau_de_change"
+        ],
+        "total_features": 28
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 2,
+      "lat": 32.081562,
+      "lon": 34.77074,
+      "osm": {
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "traffic_signals",
+          "tertiary",
+          "residential",
+          "pedestrian",
+          "footway",
+          "steps",
+          "cycleway"
+        ],
+        "sidewalk": [
+          "both"
+        ],
+        "amenity": [
+          "pharmacy",
+          "recycling",
+          "taxi",
+          "pub",
+          "restaurant",
+          "bicycle_rental",
+          "post_office",
+          "telephone",
+          "ice_cream",
+          "cafe",
+          "atm",
+          "bureau_de_change"
+        ],
+        "total_features": 25
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 3,
+      "lat": 32.08228,
+      "lon": 34.771088,
+      "osm": {
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "traffic_signals",
+          "tertiary",
+          "residential",
+          "footway",
+          "steps",
+          "cycleway"
+        ],
+        "sidewalk": [
+          "both"
+        ],
+        "amenity": [
+          "recycling",
+          "taxi",
+          "restaurant",
+          "bar",
+          "bank",
+          "ice_cream",
+          "cafe",
+          "atm",
+          "parking"
+        ],
+        "total_features": 27
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 4,
+      "lat": 32.082369,
+      "lon": 34.771106,
+      "osm": {
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "traffic_signals",
+          "tertiary",
+          "residential",
+          "footway",
+          "steps",
+          "cycleway"
+        ],
+        "sidewalk": [
+          "both"
+        ],
+        "amenity": [
+          "taxi",
+          "restaurant",
+          "recycling",
+          "bar",
+          "ice_cream",
+          "bank",
+          "cafe",
+          "atm",
+          "parking"
+        ],
+        "total_features": 27
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 5,
+      "lat": 32.083775,
+      "lon": 34.771816,
+      "osm": {
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "residential",
+          "footway",
+          "tertiary",
+          "cycleway",
+          "construction"
+        ],
+        "amenity": [
+          "bar",
+          "ice_cream",
+          "recycling",
+          "cafe",
+          "restaurant",
+          "atm",
+          "bank",
+          "place_of_worship",
+          "parking"
+        ],
+        "total_features": 22
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 6,
+      "lat": 32.08407,
+      "lon": 34.771956,
+      "osm": {
+        "lit": [
+          "yes"
+        ],
+        "surface": [
+          "asphalt",
+          "concrete"
+        ],
+        "highway": [
+          "crossing",
+          "traffic_signals",
+          "bus_stop",
+          "residential",
+          "tertiary",
+          "footway",
+          "cycleway",
+          "construction"
+        ],
+        "crossing": [
+          "marked",
+          "traffic_signals"
+        ],
+        "amenity": [
+          "ice_cream",
+          "restaurant",
+          "recycling",
+          "cafe",
+          "atm",
+          "bank",
+          "place_of_worship",
+          "parking"
+        ],
+        "total_features": 32
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 7,
+      "lat": 32.084823,
+      "lon": 34.772351,
+      "osm": {
+        "lit": [
+          "yes"
+        ],
+        "surface": [
+          "asphalt",
+          "concrete"
+        ],
+        "highway": [
+          "crossing",
+          "traffic_signals",
+          "bus_stop",
+          "residential",
+          "tertiary",
+          "footway",
+          "cycleway"
+        ],
+        "crossing": [
+          "marked",
+          "traffic_signals"
+        ],
+        "amenity": [
+          "restaurant",
+          "cafe",
+          "telephone",
+          "atm",
+          "toilets",
+          "place_of_worship"
+        ],
+        "total_features": 37
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 8,
+      "lat": 32.084915,
+      "lon": 34.77239,
+      "osm": {
+        "lit": [
+          "yes"
+        ],
+        "surface": [
+          "asphalt",
+          "concrete"
+        ],
+        "highway": [
+          "crossing",
+          "traffic_signals",
+          "bus_stop",
+          "residential",
+          "tertiary",
+          "footway",
+          "cycleway"
+        ],
+        "crossing": [
+          "marked",
+          "traffic_signals"
+        ],
+        "amenity": [
+          "restaurant",
+          "cafe",
+          "telephone",
+          "atm",
+          "toilets",
+          "place_of_worship"
+        ],
+        "total_features": 37
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 9,
+      "lat": 32.084997,
+      "lon": 34.7725,
+      "osm": {
+        "lit": [
+          "yes"
+        ],
+        "surface": [
+          "asphalt",
+          "concrete"
+        ],
+        "highway": [
+          "crossing",
+          "traffic_signals",
+          "bus_stop",
+          "residential",
+          "tertiary",
+          "footway",
+          "cycleway"
+        ],
+        "crossing": [
+          "marked",
+          "traffic_signals"
+        ],
+        "amenity": [
+          "restaurant",
+          "cafe",
+          "atm",
+          "toilets",
+          "place_of_worship"
+        ],
+        "total_features": 37
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 10,
+      "lat": 32.085461,
+      "lon": 34.772664,
+      "osm": {
+        "lit": [
+          "yes"
+        ],
+        "surface": [
+          "asphalt",
+          "concrete"
+        ],
+        "highway": [
+          "crossing",
+          "traffic_signals",
+          "bus_stop",
+          "tertiary",
+          "residential",
+          "footway",
+          "steps",
+          "cycleway"
+        ],
+        "crossing": [
+          "marked",
+          "traffic_signals"
+        ],
+        "amenity": [
+          "library",
+          "school",
+          "restaurant",
+          "fast_food",
+          "cafe",
+          "dentist"
+        ],
+        "total_features": 40
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 11,
+      "lat": 32.085574,
+      "lon": 34.772704,
+      "osm": {
+        "lit": [
+          "yes"
+        ],
+        "surface": [
+          "asphalt",
+          "concrete"
+        ],
+        "highway": [
+          "crossing",
+          "traffic_signals",
+          "bus_stop",
+          "tertiary",
+          "residential",
+          "footway",
+          "steps",
+          "cycleway"
+        ],
+        "crossing": [
+          "marked",
+          "traffic_signals"
+        ],
+        "amenity": [
+          "library",
+          "school",
+          "restaurant",
+          "fast_food",
+          "cafe",
+          "dentist"
+        ],
+        "total_features": 38
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 12,
+      "lat": 32.086192,
+      "lon": 34.772884,
+      "osm": {
+        "highway": [
+          "residential",
+          "footway",
+          "steps",
+          "tertiary"
+        ],
+        "amenity": [
+          "restaurant",
+          "dentist"
+        ],
+        "total_features": 19
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 13,
+      "lat": 32.087301,
+      "lon": 34.773219,
+      "osm": {
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "traffic_signals",
+          "bus_stop",
+          "tertiary",
+          "residential",
+          "footway",
+          "cycleway",
+          "service"
+        ],
+        "amenity": [
+          "cafe",
+          "pub",
+          "restaurant"
+        ],
+        "total_features": 26
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 14,
+      "lat": 32.087416,
+      "lon": 34.773163,
+      "osm": {
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "traffic_signals",
+          "bus_stop",
+          "tertiary",
+          "residential",
+          "footway",
+          "cycleway",
+          "service"
+        ],
+        "amenity": [
+          "cafe",
+          "pub",
+          "restaurant",
+          "place_of_worship"
+        ],
+        "total_features": 28
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 15,
+      "lat": 32.087639,
+      "lon": 34.773234,
+      "osm": {
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "traffic_signals",
+          "bus_stop",
+          "tertiary",
+          "residential",
+          "footway",
+          "cycleway",
+          "service"
+        ],
+        "amenity": [
+          "pub",
+          "cafe",
+          "restaurant",
+          "place_of_worship"
+        ],
+        "total_features": 30
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 16,
+      "lat": 32.08785,
+      "lon": 34.773304,
+      "osm": {
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "traffic_signals",
+          "bus_stop",
+          "tertiary",
+          "residential",
+          "footway",
+          "cycleway",
+          "service"
+        ],
+        "amenity": [
+          "pub",
+          "cafe",
+          "restaurant",
+          "place_of_worship"
+        ],
+        "total_features": 35
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 17,
+      "lat": 32.088608,
+      "lon": 34.77352,
+      "osm": {
+        "lit": [
+          "no"
+        ],
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "bus_stop",
+          "crossing",
+          "residential",
+          "footway",
+          "tertiary",
+          "cycleway",
+          "service"
+        ],
+        "crossing": [
+          "marked"
+        ],
+        "amenity": [
+          "restaurant",
+          "pub",
+          "bicycle_rental",
+          "telephone",
+          "place_of_worship",
+          "parking"
+        ],
+        "total_features": 28
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 18,
+      "lat": 32.088622,
+      "lon": 34.773475,
+      "osm": {
+        "lit": [
+          "no"
+        ],
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "bus_stop",
+          "crossing",
+          "residential",
+          "footway",
+          "tertiary",
+          "cycleway",
+          "service"
+        ],
+        "crossing": [
+          "marked"
+        ],
+        "amenity": [
+          "restaurant",
+          "pub",
+          "bicycle_rental",
+          "telephone",
+          "place_of_worship",
+          "parking"
+        ],
+        "total_features": 27
+      },
+      "gis": [],
+      "crime_analysis": {}
+    },
+    {
+      "index": 19,
+      "lat": 32.088658,
+      "lon": 34.773358,
+      "osm": {
+        "lit": [
+          "no"
+        ],
+        "surface": [
+          "asphalt"
+        ],
+        "highway": [
+          "bus_stop",
+          "crossing",
+          "residential",
+          "footway",
+          "tertiary",
+          "cycleway",
+          "service"
+        ],
+        "crossing": [
+          "marked"
+        ],
+        "amenity": [
+          "restaurant",
+          "pub",
+          "bicycle_rental",
+          "telephone",
+          "place_of_worship",
+          "parking"
+        ],
+        "total_features": 27
+      },
+      "gis": [],
+      "crime_analysis": {}
+    }
+  ]
+}
