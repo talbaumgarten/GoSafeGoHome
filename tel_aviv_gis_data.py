@@ -4,6 +4,7 @@ from shapely.geometry import LineString, Point
 from pyproj import Transformer
 from geopy.distance import distance as geopy_distance
 
+
 def get_nearby_lights(route_coords):
     min_lon = min(p[0] for p in route_coords)
     max_lon = max(p[0] for p in route_coords)
@@ -33,6 +34,7 @@ def get_nearby_lights(route_coords):
         transformer.transform(f["geometry"]["x"], f["geometry"]["y"])
         for f in features
     ]
+
 
 def check_proximity_to_layer(route_coords, layer_id, strict_intersection=False):
     transformer_to_itm = Transformer.from_crs("EPSG:4326", "EPSG:2039", always_xy=True)
@@ -76,6 +78,7 @@ def check_proximity_to_layer(route_coords, layer_id, strict_intersection=False):
                     return True
     return False
 
+
 def count_items_along_route(route_coords, layer_id):
     transformer_to_itm = Transformer.from_crs("EPSG:4326", "EPSG:2039", always_xy=True)
     min_lon = min(p[0] for p in route_coords)
@@ -115,20 +118,26 @@ def count_items_along_route(route_coords, layer_id):
                 count += 1
     return count
 
+
 def count_shelters_along_route(route_coords):
     return count_items_along_route(route_coords, 592)
+
 
 def is_near_construction(route_coords):
     return check_proximity_to_layer(route_coords, 479)
 
+
 def is_near_night_public_work(route_coords):
     return check_proximity_to_layer(route_coords, 858)
+
 
 def is_near_road_work(route_coords):
     return check_proximity_to_layer(route_coords, 852)
 
+
 def is_on_walking_street(route_coords):
     return check_proximity_to_layer(route_coords, 659, strict_intersection=True)
+
 
 def analyze_route(route_coords):
     sample_lights = get_nearby_lights(route_coords)
@@ -169,6 +178,7 @@ def analyze_route(route_coords):
         "Near Road Work": is_near_road_work(route_coords),
         "On Walking Street": is_on_walking_street(route_coords)
     }
+
 
 def analyze_all_routes_from_json_obj(route_data):
     results = []
