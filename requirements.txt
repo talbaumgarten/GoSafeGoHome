@@ -1,0 +1,3 @@
+google-generativeai
+google-auth 
+google~=3.0.0
