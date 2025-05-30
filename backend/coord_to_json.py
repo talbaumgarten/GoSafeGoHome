@@ -32,7 +32,7 @@ def coord_to_json(origin, destination):
     if not origin or not destination:
         print("Could not geocode one or both addresses.")
         return
-    G = ox.graph_from_point(origin, dist=2000, network_type='walk', simplify=True)
+    G = ox.graph_from_point(origin, dist=3000, network_type='walk', simplify=True)
 
     # Get nearest nodes
     orig_node = ox.distance.nearest_nodes(G, X=origin[1], Y=origin[0])

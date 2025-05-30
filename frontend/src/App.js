@@ -170,9 +170,14 @@ function App() {
 
   return (
     <div className="flex flex-col h-screen font-sans">
-      <header className="bg-blue-600 text-white p-4 text-xl font-bold shadow">
-        WALK WISE
-      </header>
+      <header className="flex justify-between items-center p-4 shadow-md bg-blue-500 ">
+      <h1 className="text-2xl font-bold text-white">   WALK WISE</h1>
+      <img
+        src="/logo.jpg" // <-- replace with your actual logo path or URL
+        // alt="Logo"
+        className="h-20 w-auto"
+      />
+    </header>
       <div className="flex flex-grow">
         <aside className="w-80 bg-gray-50 p-4 shadow-md z-10 overflow-y-auto">
           <form className="space-y-4" onSubmit={handleSubmit}>
@@ -228,7 +233,7 @@ function App() {
               )}
             </div>
 
-            <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+            <button className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-300">
               Find Safe Route
             </button>
           </form>

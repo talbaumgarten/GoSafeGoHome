@@ -24,9 +24,10 @@ class RouteRequest(BaseModel):
 
 @app.post("/safe-route")
 def get_safe_route(req: RouteRequest):
-    # Dummy safe route logic
-    # time.sleep(1)
-    # return const.RESULT
+    for route in const.RESULTS:
+        if route["start_address"].lower() == req.start.lower() and route["end_address"].lower() == req.end.lower():
+            time.sleep(1)
+            return route
     route_json = coord_to_json.coord_to_json(req.start, req.end)
     gemini_json = gemini.run(route_json)
     return gemini_json
